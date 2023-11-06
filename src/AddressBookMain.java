@@ -10,7 +10,7 @@ public class AddressBookMain {
         Scanner sc = new Scanner(System.in);
         System.out.println("************************************Welcome To Address Book*******************************");
         do {
-            System.out.println("Enter Your Choice: \n1)Add Contact \n2)Update Contact\n3)Exit");
+            System.out.println("Enter Your Choice: \n1)Add Contact \n2)Update Contact\n3)Delete Contact\n4)Exit");
              ch = sc.nextInt();
             switch (ch) {
                 case 1:
@@ -20,6 +20,8 @@ public class AddressBookMain {
                     ob.updateContact();
                     break;
                 case 3:
+                    ob.deleteContact();
+                case 4:
                     System.exit(0);
                     break;
                 default:
@@ -121,6 +123,16 @@ public class AddressBookMain {
                     contactList.get(i).setPhoneNo(newPhoneNo);
                     System.out.println("Phone No Updated Successfully");
                     break;
+            }
+        }
+        System.out.println(contactList);
+    }
+    public void deleteContact(){
+        for (int i = 0; i < contactList.size(); i++) {
+            System.out.println("Enter Name For Delete Contact");
+            String name=sc.next();
+            if(name.equals(contactList.get(i).getFirstName())){
+                contactList.remove(i);
             }
         }
         System.out.println(contactList);
