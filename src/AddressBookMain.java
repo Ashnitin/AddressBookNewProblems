@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBookMain {
@@ -10,7 +11,7 @@ public class AddressBookMain {
         Scanner sc = new Scanner(System.in);
         System.out.println("************************************Welcome To Address Book*******************************");
         do {
-            System.out.println("Enter Your Choice: \n1)Add Contact \n2)Update Contact\n3)Delete Contact\n4)Exit");
+            System.out.println("Enter Your Choice: \n1)Add Contact \n2)Update Contact\n3)Delete Contact\n4)Show Contact\n5)Exit");
              ch = sc.nextInt();
             switch (ch) {
                 case 1:
@@ -22,6 +23,9 @@ public class AddressBookMain {
                 case 3:
                     ob.deleteContact();
                 case 4:
+                    ob.showContact();
+
+                case 5:
                     System.exit(0);
                     break;
                 default:
@@ -65,7 +69,11 @@ public class AddressBookMain {
         contact.setEmail(email);
 
         contactList.add(contact);
-        System.out.println(contactList);
+        //System.out.println(contactList);
+        System.out.println("****************************************************************************************");
+        System.out.println("Contact Added Successfully");
+        System.out.println("****************************************************************************************");
+
         return contact;
     }
     public void updateContact() {
@@ -136,6 +144,12 @@ public class AddressBookMain {
             }
         }
         System.out.println(contactList);
+    }
+    public void showContact(){
+        Iterator itr=contactList.iterator();
+        while (itr.hasNext()){
+            System.out.println(itr.next());
+        }
     }
 
 }
