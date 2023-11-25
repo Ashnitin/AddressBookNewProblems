@@ -18,10 +18,17 @@ public class Contact {
 
     }
 
+    /*public static void main(String[] args) {
+        int a=0;
+        long b=0;
+        Contact c1c = new Contact();
+        String s1 = c1c.toString();
+        System.out.println(s1);
+    }*/
     @Override
     public String toString() {
         return "Contact{" +
-                "firstName='" + firstName + '\'' +
+                "firstName='" + getLastName() + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
