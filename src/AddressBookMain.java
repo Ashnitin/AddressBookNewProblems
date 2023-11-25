@@ -3,31 +3,60 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBookMain {
-    ArrayList<Contact> contactList = new ArrayList<>();
-    Scanner sc = new Scanner(System.in);
+   private String addressBookName;
+
+    public AddressBookMain(String addressBookName) {
+        this.addressBookName = addressBookName;
+    }
+
+    public AddressBookMain() {
+    }
+
+    public String getAddressBookName() {
+        return addressBookName;
+    }
+
+    public void setAddressBookName(String addressBookName) {
+        this.addressBookName = addressBookName;
+    }
+
+    @Override
+    public String toString() {
+        return "addressBookName='" + addressBookName + '\'' +"\n"+
+                "\ncontactList=" + contactList;
+    }
+
+    private ArrayList<Contact> contactList = new ArrayList<>();
+
     public static void main(String[] args) {
+        Contact contact = new Contact();
+        System.out.println(contact);
+        /* ArrayList<Contact> contactList = new ArrayList<>();
+        System.out.println(contactList);*/
+    }
+    Scanner sc = new Scanner(System.in);
+    public  void addContactInParent() {
         int ch;
-        AddressBookMain ob=new AddressBookMain();
         Scanner sc = new Scanner(System.in);
-        System.out.println("************************************Welcome To Address Book*******************************");
+        System.out.println("************************************Please Add Contact*******************************");
         do {
             System.out.println("Enter Your Choice: \n1)Add Contact \n2)Update Contact\n3)Delete Contact\n4)Show Contact\n5)Exit");
              ch = sc.nextInt();
             switch (ch) {
                 case 1:
-                    ob.addContact();
+                    this.addContact();
                     break;
                 case 2:
-                    ob.updateContact();
+                    this.updateContact();
                     break;
                 case 3:
-                    ob.deleteContact();
+                    this.deleteContact();
                 case 4:
-                    ob.showContact();
+                    this.showContact();
 
                 case 5:
-                    System.exit(0);
-                    break;
+                    return;
+
                 default:
                     System.out.println("Invalid Option");
             }
@@ -146,9 +175,10 @@ public class AddressBookMain {
         System.out.println(contactList);
     }
     public void showContact(){
+
         Iterator itr=contactList.iterator();
         while (itr.hasNext()){
-            System.out.println(itr.next());
+            System.out.println(addressBookName+itr.next());
         }
     }
 
