@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class AddressBookMain {
-   private String addressBookName;
+    private String addressBookName;
 
     public AddressBookMain(String addressBookName) {
         this.addressBookName = addressBookName;
@@ -22,7 +22,7 @@ public class AddressBookMain {
 
     @Override
     public String toString() {
-        return "addressBookName='" + addressBookName + '\'' +"\n"+
+        return "addressBookName='" + addressBookName + '\'' + "\n" +
                 "\ncontactList=" + contactList;
     }
 
@@ -34,16 +34,24 @@ public class AddressBookMain {
         /* ArrayList<Contact> contactList = new ArrayList<>();
         System.out.println(contactList);*/
     }
+
     Scanner sc = new Scanner(System.in);
-    public  void addContactInParent() {
+
+    public Contact addContactInParent() {
         int ch;
         Scanner sc = new Scanner(System.in);
         System.out.println("************************************Please Add Contact*******************************");
         do {
             System.out.println("Enter Your Choice: \n1)Add Contact \n2)Update Contact\n3)Delete Contact\n4)Show Contact\n5)Exit");
-             ch = sc.nextInt();
+            ch = sc.nextInt();
             switch (ch) {
                 case 1:
+                    /*for (int i = 0; i < contactList.size(); i++) {
+                        return contactList.stream()
+                                .filter(dup -> contactList.get(i).equals(addContact()))
+                                .findFirst()
+                                .orElse(null);
+                    }*/
                     this.addContact();
                     break;
                 case 2:
@@ -55,15 +63,17 @@ public class AddressBookMain {
                     this.showContact();
 
                 case 5:
-                    return;
+                    return null;
 
                 default:
                     System.out.println("Invalid Option");
             }
-        }while (ch<3);
+        } while (ch < 3);
+        return null;
     }
+
     public Contact addContact() {
-        Contact contact =new Contact();
+        Contact contact = new Contact();
 
         System.out.println("Enter First Name: ");
         String firstName = sc.next();
@@ -72,41 +82,56 @@ public class AddressBookMain {
         System.out.println("Enter Last Name: ");
         String lastName = sc.next();
         contact.setLastName(lastName);
+       boolean samePerson= contactList.stream().anyMatch(fname -> fname.getFirstName().equals(firstName) && fname.getLastName().equals(lastName));
 
-        System.out.println("Enter Address: ");
-        String address = sc.next();
-        contact.setAddress(address);
+        if (samePerson) {
+            System.out.println("Name Already Exist ");
+        }
+        else {
+            contact.setFirstName(firstName);
+            contact.setLastName(lastName);
+            System.out.println("Enter Address: ");
+            String address = sc.next();
+            contact.setAddress(address);
 
-        System.out.println("Enter Your City: ");
-        String city = sc.next();
-        contact.setCity(city);
+            System.out.println("Enter Your City: ");
+            String city = sc.next();
+            contact.setCity(city);
 
-        System.out.println("Enter State: ");
-        String state = sc.next();
-        contact.setState(state);
+            System.out.println("Enter State: ");
+            String state = sc.next();
+            contact.setState(state);
 
-        System.out.println("Enter Zip: ");
-        int zip = sc.nextInt();
-        contact.setZip(zip);
+            System.out.println("Enter Zip: ");
+            int zip = sc.nextInt();
+            contact.setZip(zip);
 
-        System.out.println("Enter your Phone No: ");
-        long phoneNo = sc.nextLong();
-        contact.setPhoneNo(phoneNo);
+            System.out.println("Enter your Phone No: ");
+            long phoneNo = sc.nextLong();
+            contact.setPhoneNo(phoneNo);
 
-        System.out.println("Enter your Email: ");
-        String email = sc.next();
-        contact.setEmail(email);
+            System.out.println("Enter your Email: ");
+            String email = sc.next();
+            contact.setEmail(email);
 
-        contactList.add(contact);
-        //System.out.println(contactList);
-        System.out.println("****************************************************************************************");
-        System.out.println("Contact Added Successfully");
-        System.out.println("****************************************************************************************");
+            contactList.add(contact);
+       /* for (int i=0;i<contactList.size();i++) {
+            return contactList.stream()
+                    .flatMap(dup -> contactList.get(i).equals(firstName)
+                    .orElse(null);
+        }*/
+            //System.out.println(contactList);
+            System.out.println("****************************************************************************************");
+            System.out.println("Contact Added Successfully");
+            System.out.println("****************************************************************************************");
 
+            return contact;
+        }
         return contact;
     }
-    public void updateContact() {
 
+    public void updateContact() {
+        //System.out.println(this.contactList);
         for (int i = 0; i < contactList.size(); i++) {
 
             System.out.println("Enter Number For Updation: \n1)Firstname\n2)lastname\n3)Address\n4)city\n5)State\n6)Email\n7)Zip\n8)PhoneNo");
@@ -115,8 +140,12 @@ public class AddressBookMain {
                 case 1:
                     System.out.println("Enter Your New First Name: ");
                     String newFirstName = sc.next();
+                    //this.contactList.get(i);
+                    // this.contactList.get(i).setFirstName("ash");
+                    //  System.out.println(this.contactList.get(i).toString());
                     contactList.get(i).setFirstName(newFirstName);
                     System.out.println("First Name Updated Successfully");
+                    System.out.println(this.contactList);
                     break;
                 case 2:
                     System.out.println("Enter Your New Last Name: ");
@@ -162,24 +191,32 @@ public class AddressBookMain {
                     break;
             }
         }
-        System.out.println(contactList);
+        //System.out.println(contactList);
     }
-    public void deleteContact(){
+
+    public void deleteContact() {
         for (int i = 0; i < contactList.size(); i++) {
             System.out.println("Enter Name For Delete Contact");
-            String name=sc.next();
-            if(name.equals(contactList.get(i).getFirstName())){
+            String name = sc.next();
+            if (name.equals(contactList.get(i).getFirstName())) {
                 contactList.remove(i);
             }
         }
         System.out.println(contactList);
     }
-    public void showContact(){
 
-        Iterator itr=contactList.iterator();
-        while (itr.hasNext()){
-            System.out.println(addressBookName+itr.next());
+    public void showContact() {
+
+        Iterator itr = contactList.iterator();
+        while (itr.hasNext()) {
+            System.out.println(addressBookName + itr.next());
         }
     }
-
 }
+       /* public boolean findPersonByName (ArrayList < Contact > contactList, String firstName, String lastName){
+            if (contactList.stream().anyMatch(fname -> fname.getFirstName().equals(firstName) && fname.getLastName().equals(lastName))) {
+                return true;
+            }
+            return false;
+        }*/
+
